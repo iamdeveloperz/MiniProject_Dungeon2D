@@ -8,6 +8,10 @@ Library: C:\Users\iamde\OneDrive\Desktop\PROJECT\MiniProject_Dungeon2D\MiniProje
 --float-precision=Standard
 --target-framework=NetFramework
 --assembly-defines=Assembly-CSharp;
+--assembly-defines=Firebase.App;
+--assembly-defines=Firebase.Auth;
+--assembly-defines=Firebase.Platform;
+--assembly-defines=Google.Play.Games;
 --assembly-defines=Mono.Security;
 --assembly-defines=mscorlib;
 --assembly-defines=System.Configuration;
