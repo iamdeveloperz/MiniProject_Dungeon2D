@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class BaseScene : MonoBehaviour
@@ -20,8 +18,7 @@ public class BaseScene : MonoBehaviour
     {
         if (!Managers.Resource.IsLoaded)
         {
-            Managers.Resource.LoadAllPrefabs();
-            //Managers.Resource.LoadAllPrefabs(Literals.PATH_UI);
+            Managers.Resource.LoadAlls();
 
             Initialize();
         }

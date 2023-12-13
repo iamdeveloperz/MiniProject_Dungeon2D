@@ -6,7 +6,10 @@ public class ResourceManager
 {
     #region Resources Mebmer
 
-    private Dictionary<string, GameObject> _resources = new Dictionary<string, GameObject>();
+    // 1. string : 폴더에 대한 경로
+    // 2. key : 키 값
+    private Dictionary<string, Dictionary<string, GameObject>> _resourcesByFolder =
+        new Dictionary<string, Dictionary<string, GameObject>>();
 
     private bool _isLoaded = false;
 
@@ -14,41 +17,75 @@ public class ResourceManager
 
     #endregion
 
-    public void LoadAllPrefabs(string foldePath = null)
-    {
-        GameObject[] prefabs = Resources.LoadAll<GameObject>(foldePath ?? "Prefabs");
 
-        foreach (GameObject prefab in prefabs)
-        {
-            if (!_resources.ContainsKey(prefab.name))
-            {
-                _resources.Add(prefab.name, prefab);
-            }
-            else
-            {
-                Debug.LogWarning($"Prefab with name {prefab.name} already exists in the dictionary.");
-            }
-        }
+
+    #region Load Resources
+    public void LoadAlls()
+    {
+        LoadAllPrefabs(Literals.PATH_INIT);
+        LoadAllPrefabs(Literals.PATH_UI);
 
         _isLoaded = true;
     }
 
-    public GameObject GetPrefab(string prefabName)
+    public void LoadAllPrefabs(string folderPath = null)
     {
-        if (_resources.TryGetValue(prefabName, out GameObject prefab))
+        GameObject[] prefabs = Resources.LoadAll<GameObject>(folderPath ?? "Prefabs");
+        string folderKey = folderPath ?? "Prefabs";
+
+        if (!_resourcesByFolder.ContainsKey(folderKey))
+        {
+            _resourcesByFolder[folderKey] = new Dictionary<string, GameObject>();
+        }
+
+        foreach (GameObject prefab in prefabs)
+        {
+            if (!_resourcesByFolder[folderKey].ContainsKey(prefab.name))
+            {
+                _resourcesByFolder[folderKey].Add(prefab.name, prefab);
+            }
+            else
+            {
+                Debug.LogWarning($"Prefab with name {prefab.name} already exists in the dictionary for folder {folderKey}.");
+            }
+        }
+    }
+    #endregion
+
+
+
+    #region Get Resources
+    public GameObject GetPrefab(string prefabName, string folderPath = "Prefabs")
+    {
+        if (_resourcesByFolder.TryGetValue(folderPath, out var folderDict) && 
+            folderDict.TryGetValue(prefabName, out GameObject prefab))
         {
             return prefab;
         }
         else
         {
-            Debug.LogWarning($"Prefab with name {prefabName} not found in the dictionary.");
+            Debug.LogWarning($"Prefab with name {prefabName} not found in the folder {folderPath}.");
             return null;
         }
     }
 
-    public GameObject Instantiate(string prefabName, Transform parent = null)
+    public GameObject[] GetPrefabs(string folderPath)
     {
-        GameObject prefab = GetPrefab(prefabName);
+        if (!string.IsNullOrEmpty(folderPath) && _resourcesByFolder.TryGetValue(folderPath, out var folderDict))
+        {
+            return new List<GameObject>(folderDict.Values).ToArray();
+        }
+        else
+        {
+            Debug.LogWarning($"Folder path is invalid or not loaded: {folderPath}");
+            return new GameObject[0];
+        }
+    }
+    #endregion
+
+    public GameObject Instantiate(string prefabName, string folderPath = "Prefabs", Transform parent = null)
+    {
+        GameObject prefab = GetPrefab(prefabName, folderPath);
 
         if (prefab == null)
         {

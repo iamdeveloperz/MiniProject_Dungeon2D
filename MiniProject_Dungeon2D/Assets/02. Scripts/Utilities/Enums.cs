@@ -1,18 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class Enums : MonoBehaviour
+
+public static class Enums 
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum Scene
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Title,
+        Lobby
     }
 }
