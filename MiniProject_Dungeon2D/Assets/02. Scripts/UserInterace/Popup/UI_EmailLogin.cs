@@ -79,7 +79,7 @@ public class UI_EmailLogin : UI_Popup
     {
         Managers.Auth.EmailLogin(_userEmail, _userPassword);
 
-        float timeoutDuration = 3.0f;
+        float timeoutDuration = 10.0f;
         float elapsedTime = 0f;
 
         while (!Managers.Auth.IsLoggedIn && elapsedTime < timeoutDuration)

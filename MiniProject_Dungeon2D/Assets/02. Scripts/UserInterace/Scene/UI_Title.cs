@@ -78,6 +78,7 @@ public class UI_Title : UI_Scene
     {
         if (Managers.Auth.User != null)
         {
+            Managers.DB.LoadUser();
             GetObject((int)GameObjects.ButtonGroup).SetActive(false);
             GetObject((int)GameObjects.LoginCompleteGroup).SetActive(true);
         }

@@ -7,7 +7,6 @@ using UnityEngine;
 
 public abstract class FirebaseAuthentication
 {
-    // Firebase Email,Password
     protected IEnumerator HandleFirebaseAuth(Task<AuthResult> authTask, bool isRegister)
     {
         yield return new WaitUntil(predicate: () => authTask.IsCompleted);
@@ -17,6 +16,7 @@ public abstract class FirebaseAuthentication
             Exception exception = authTask.Exception.GetBaseException();
 
             Managers.Auth.InfoMessage = AuthErrorMessage.GetErrorMessage(exception);
+
             if (isRegister)
                 Managers.Auth.IsRegister = false;
             else
@@ -29,8 +29,8 @@ public abstract class FirebaseAuthentication
             if (!isRegister)
             {
                 Managers.Auth.SetUser(authTask.Result.User);
-                Managers.Auth.IsLoggedIn = true;
                 Managers.Auth.InfoMessage = "사용자 로그인 성공";
+                Managers.Auth.IsLoggedIn = true;
 
                 Debug.Log(message: $"User signed in successfully: {Managers.Auth.User.Email}");
             }

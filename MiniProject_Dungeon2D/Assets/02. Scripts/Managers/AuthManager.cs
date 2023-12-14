@@ -1,8 +1,8 @@
 
 using UnityEngine;
-using Firebase;
 using Firebase.Auth;
 using GooglePlayGames;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class AuthManager
 {
@@ -76,6 +76,8 @@ public class AuthManager
         Debug.Log("Set up the Firebase Auth");
 
         _fbAuth = FirebaseAuth.DefaultInstance;
+
+        AutoLoginChecker();
     }
 
     private void InitDependenciesLoginSystem()
@@ -85,6 +87,15 @@ public class AuthManager
         _gpgsLogin = new FirebaseWithGPGS();
     }
 
+    private void AutoLoginChecker()
+    {
+        if (_fbAuth.CurrentUser != null)
+        {
+            _user = _fbAuth.CurrentUser;
+            Logout();
+            Debug.LogError("Auto Login");
+        }
+    }
     #endregion
 
 
@@ -113,10 +124,12 @@ public class AuthManager
     #region Util Methods
     public void Logout()
     {
-        if(_fbAuth != null && _user != null)
+        if(_fbAuth.CurrentUser != null || _user != null)
         {
             _fbAuth.SignOut();
             _user = null;
+
+            Debug.Log("로그아웃 완료");
         }
     }
     #endregion
