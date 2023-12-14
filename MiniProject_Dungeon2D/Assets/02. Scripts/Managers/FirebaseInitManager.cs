@@ -9,13 +9,18 @@ public class FirebaseInitManager
     // Firebase Variables
     private DependencyStatus _dependencyStatus;
 
+    public bool IsInit { get; private set; }
+
     #endregion
 
 
     public void InitializeFirebase()
     {
+        
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
+            IsInit = true;
+
             _dependencyStatus = task.Result;
 
             if (_dependencyStatus == DependencyStatus.Available)

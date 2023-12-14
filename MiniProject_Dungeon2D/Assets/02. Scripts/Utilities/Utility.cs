@@ -1,4 +1,5 @@
 
+using Newtonsoft.Json;
 using UnityEngine;
 
 public static class Utility
@@ -81,5 +82,23 @@ public static class Utility
         max += 1;
 
         return random.Next(min, max);
+    }
+
+
+
+    public static T JsonConvertDeserialize<T>(T dataObject)
+    {
+        string json = JsonConvert.SerializeObject(dataObject);
+
+        T deseralizeData = JsonConvert.DeserializeObject<T>(json);
+
+        return deseralizeData;
+    }
+
+    public static string JsonConvertSerialize<T>(T dataObject)
+    {
+        string json = JsonConvert.SerializeObject(dataObject);
+
+        return json;
     }
 }

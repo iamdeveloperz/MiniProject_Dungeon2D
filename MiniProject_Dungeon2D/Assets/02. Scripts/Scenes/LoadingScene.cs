@@ -56,20 +56,15 @@ public class LoadingScene : BaseScene
                 _progressBar.value = Mathf.MoveTowards(_progressBar.value, 1f, Time.deltaTime);
                 if (_progressBar.value >= 1f)
                 {
-                    InitFirebase();
                     op.allowSceneActivation = true; // 로딩 완료 후 씬 활성화
                 }
             }
+
+            if (_progressBar.value > 0.7f && !Managers.FBInit.IsInit)
+            {
+                Managers.FBInit.InitializeFirebase();
+            }
             yield return new WaitForSeconds(0.05f);
         }
-    }
-
-    private void InitFirebase()
-    {
-        if (Managers.Auth != null)
-            Managers.Auth.Initialize();
-
-        if (Managers.DB != null)
-            Managers.DB.Initialize();
     }
 }

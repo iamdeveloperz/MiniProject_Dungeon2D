@@ -71,6 +71,9 @@ public class FirebaseEmailRegister : FirebaseAuthentication
                 Managers.DB.UpdateUserName(user.DisplayName, user);
 
                 NewPlayerSetupAndDB(user);
+
+                // Auto Login Nope
+                Managers.Auth.Logout();
             }
         }
     }
@@ -85,10 +88,10 @@ public class FirebaseEmailRegister : FirebaseAuthentication
         if (user != null)
         {
             PlayerData newPlayerData = new PlayerData();
-            AccountData newAccountData = new AccountData();
+            AccountData accountData = new AccountData();
 
-            Managers.DB.UpdatePlayerData(newPlayerData);
-            Managers.DB.UpdateAccountData(newAccountData);
+            Managers.DB.UpdatePlayer(Literals.DB_PLAYERDATA, newPlayerData, user);
+            Managers.DB.UpdatePlayer(Literals.DB_ACCOUNT, accountData, user);
         }
     }
 }

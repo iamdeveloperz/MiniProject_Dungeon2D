@@ -11,6 +11,7 @@ public class Managers : SingletonBehaviour<Managers>
     /* Games */
     private readonly UIManager _uiManager = new();
     private readonly ResourceManager _resourceManager = new();
+    private readonly GameManager _gameManager = new();
 
     #endregion
 
@@ -30,6 +31,8 @@ public class Managers : SingletonBehaviour<Managers>
 
     public static UIManager UI => Instance?._uiManager;
     public static ResourceManager Resource => Instance?._resourceManager;
+
+    public static GameManager Game => Instance?._gameManager;
 
     #endregion
 }

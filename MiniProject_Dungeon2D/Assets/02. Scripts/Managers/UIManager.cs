@@ -119,8 +119,8 @@ public class UIManager
 
         if(sorting)
         {
-            canvas.sortingOrder = _order;
             _order += 1;
+            canvas.sortingOrder = _order;
         }
         else
         {
