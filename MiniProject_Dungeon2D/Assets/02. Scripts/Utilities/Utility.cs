@@ -3,6 +3,18 @@ using UnityEngine;
 
 public static class Utility
 {
+    #region Generate UserName and Tag
+    public static string GenerateUserNameAndTag(string userName)
+    {
+        int tagNumber = GetRandomNumber(1000, 9999);
+
+        string userNameWithTag = $"{userName}#{tagNumber}";
+        return userNameWithTag;
+    }
+    #endregion
+
+
+
     #region To Component
     public static T FindChild<T>(GameObject go, string name = null, bool recursive = false) where T : UnityEngine.Object
     {
@@ -59,5 +71,15 @@ public static class Utility
             component = go.AddComponent<T>();
 
         return component;
+    }
+
+
+
+    public static int GetRandomNumber(int min, int max)
+    {
+        System.Random random = new System.Random();
+        max += 1;
+
+        return random.Next(min, max);
     }
 }

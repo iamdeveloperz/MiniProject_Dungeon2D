@@ -28,4 +28,15 @@ public static class Literals
     public const string TITLE_Popup_Email_Register = "Popup_UI_EmailRegister";
 
     #endregion
+
+
+
+    #region Database
+
+    public const string DB_ROOT = "users";
+    public const string DB_USERNAME = "username";
+    public const string DB_PLAYERDATA = "playerData";
+    public const string DB_ACCOUNT = "account";
+
+    #endregion
 }

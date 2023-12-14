@@ -3,8 +3,6 @@ using System;
 using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine;
-using System.Text.RegularExpressions;
-using TMPro;
 
 public class UI_EmailRegister : UI_Popup
 {
@@ -106,7 +104,7 @@ public class UI_EmailRegister : UI_Popup
     {
         Managers.Auth.EmailRegister(_userEmail, _userName, _userPassword, _userPasswordConfirm);
 
-        float timeoutDuration = 3.0f;
+        float timeoutDuration = 10.0f;
         float elapsedTime = 0f;
 
         while (!Managers.Auth.IsRegister && elapsedTime < timeoutDuration)

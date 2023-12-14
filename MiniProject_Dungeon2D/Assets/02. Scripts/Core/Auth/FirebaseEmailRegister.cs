@@ -36,16 +36,16 @@ public class FirebaseEmailRegister : FirebaseAuthentication
 
         if(!registerTask.IsCanceled && !registerTask.IsFaulted)
         {
-            CoroutineManager.StartManagedCoroutine(RegisterUserNickname(userName));
+            CoroutineManager.StartManagedCoroutine(RegisterUserNickname(userName, registerTask.Result.User));
         }
     }
 
 
 
-    #region UserName Coroutine
-    private IEnumerator RegisterUserNickname(string userName)
+    #region UserName Methods
+    private IEnumerator RegisterUserNickname(string userName, FirebaseUser newUser = null)
     {
-        var user = Managers.Auth.User;
+        var user = newUser;
 
         if (user != null)
         {
@@ -68,10 +68,27 @@ public class FirebaseEmailRegister : FirebaseAuthentication
             }
             else
             {
-                // User name setting complete
-                // return to screen or scene
+                Managers.DB.UpdateUserName(user.DisplayName, user);
+
+                NewPlayerSetupAndDB(user);
             }
         }
     }
     #endregion
+
+
+
+    private void NewPlayerSetupAndDB(FirebaseUser newUser)
+    {
+        var user = newUser;
+
+        if (user != null)
+        {
+            PlayerData newPlayerData = new PlayerData();
+            AccountData newAccountData = new AccountData();
+
+            Managers.DB.UpdatePlayerData(newPlayerData);
+            Managers.DB.UpdateAccountData(newAccountData);
+        }
+    }
 }
