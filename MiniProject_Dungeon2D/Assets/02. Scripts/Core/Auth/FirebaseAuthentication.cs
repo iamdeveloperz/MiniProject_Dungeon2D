@@ -63,6 +63,8 @@ public abstract class FirebaseAuthentication
 
             Managers.Auth.InfoMessage = "구글 계정 연동에 성공 했습니다";
 
+            Managers.DB.UpdateUserName(authTask.Result.DisplayName, authTask.Result);
+
             Debug.Log(message: $"User signed in successfully: {Managers.Auth.User.Email}");
         }
     }

@@ -14,7 +14,7 @@ public class BaseScene : MonoBehaviour
 
 
     #region Init
-    private void Awake()
+    private void Start()
     {
         if (!Managers.Resource.IsLoaded)
         {

@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 
 public static class InitOnLoad 
@@ -7,7 +8,6 @@ public static class InitOnLoad
     private static void InitApplication()
     {
         Managers.Resource.LoadAlls();
-        Managers.Auth.Initialize();
 
         var prefabs = Managers.Resource.GetPrefabs(Literals.PATH_INIT);
 

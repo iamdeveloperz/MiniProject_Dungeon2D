@@ -8,8 +8,6 @@ public class AuthManager
 {
     #region Member Variables
 
-    // Firebase Variables
-    private DependencyStatus _dependencyStatus;
 
     private FirebaseUser _user;
 
@@ -28,6 +26,7 @@ public class AuthManager
 
     #region Properties
 
+    public bool IsInit { get; private set; } = false;
     public bool IsLoggedIn { get; set; } = false;
     public bool IsRegister { get; set; } = false;
     public string InfoMessage { get; set; }
@@ -58,24 +57,13 @@ public class AuthManager
     public void Initialize()
     {
         // FB
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
-        {
-            _dependencyStatus = task.Result;
+        InitializeFirebaseAuth();
+        // GPGS
+        InitializeGooglePlayGameS();
+        // Dependencies Scripts
+        InitDependenciesLoginSystem();
 
-            if (_dependencyStatus == DependencyStatus.Available)
-            {
-                // FB
-                InitializeFirebase();
-                // GPGS
-                InitializeGooglePlayGameS();
-                // Dependencies Scripts
-                InitDependenciesLoginSystem();
-            }
-            else
-            {
-                Debug.LogError("Could not resolve all Firebase Dependecies : " + _dependencyStatus);
-            }
-        });
+        IsInit = true;
     }
 
     private void InitializeGooglePlayGameS()
@@ -83,7 +71,7 @@ public class AuthManager
         _gpgsAuth = PlayGamesPlatform.Instance;
     }
 
-    private void InitializeFirebase()
+    private void InitializeFirebaseAuth()
     {
         Debug.Log("Set up the Firebase Auth");
 
