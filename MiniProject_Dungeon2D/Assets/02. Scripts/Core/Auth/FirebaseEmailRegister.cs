@@ -16,18 +16,17 @@ public class FirebaseEmailRegister : FirebaseAuthentication
         if(string.IsNullOrEmpty(email) || string.IsNullOrEmpty(userName) ||
             string.IsNullOrEmpty(pw) || string.IsNullOrEmpty(pwConfirm))
         {
-            _infoMessage = "비어 있는 입력이 존재합니다.";
-            //Managers.UI.ShowPopupUI
+            Managers.Auth.InfoMessage = "비어 있는 입력이 존재합니다.";
             yield break;
         }
         else if(!string.Equals(pw, pwConfirm))
         {
-            _infoMessage = "비밀번호가 같지 않습니다.";
+            Managers.Auth.InfoMessage = "비밀번호가 같지 않습니다.";
             yield break;
         }
         else if(userName.Length < 2 || userName.Length > 10)
         {
-            _infoMessage = "닉네임 길이를 준수해주세요.";
+            Managers.Auth.InfoMessage = "닉네임 길이를 준수해주세요.";
             yield break;
         }
 
@@ -65,7 +64,7 @@ public class FirebaseEmailRegister : FirebaseAuthentication
                 AuthError authError = (AuthError)firebaseException.ErrorCode;
 
                 // Text Process
-                _infoMessage = "사용자 닉네임 설정에 실패했습니다.";
+                Managers.Auth.InfoMessage = "사용자 닉네임 설정에 실패했습니다.";
             }
             else
             {

@@ -7,8 +7,6 @@ using UnityEngine;
 
 public abstract class FirebaseAuthentication
 {
-    protected string _infoMessage;
-
     // Firebase Email,Password
     protected IEnumerator HandleFirebaseAuth(Task<AuthResult> authTask, bool isRegister)
     {
@@ -18,25 +16,30 @@ public abstract class FirebaseAuthentication
         {
             Exception exception = authTask.Exception.GetBaseException();
 
-            _infoMessage = AuthErrorMessage.GetErrorMessage(exception);
+            Managers.Auth.InfoMessage = AuthErrorMessage.GetErrorMessage(exception);
+            if (isRegister)
+                Managers.Auth.IsRegister = false;
+            else
+                Managers.Auth.IsLoggedIn = false;
 
-            Debug.LogWarning(message: $"Authentication failed: {_infoMessage}");
+            Debug.LogWarning(message: $"Authentication failed: {Managers.Auth.InfoMessage}");
         }
         else
         {
             if (!isRegister)
             {
                 Managers.Auth.SetUser(authTask.Result.User);
-
-                _infoMessage = "사용자 로그인 성공";
+                Managers.Auth.IsLoggedIn = true;
+                Managers.Auth.InfoMessage = "사용자 로그인 성공";
 
                 Debug.Log(message: $"User signed in successfully: {Managers.Auth.User.Email}");
             }
             else
             {
-                _infoMessage = "사용자 계정 생성 성공";
+                Managers.Auth.InfoMessage = "사용자 계정 생성 성공";
+                Managers.Auth.IsRegister = true;
 
-                Debug.Log(message: $"User register in successfully: {Managers.Auth}");
+                Debug.Log(message: $"User register in successfully: {authTask.Result.User.Email}");
             }
         }
     }
@@ -50,15 +53,15 @@ public abstract class FirebaseAuthentication
         {
             Exception exception = authTask.Exception.GetBaseException();
 
-            _infoMessage = AuthErrorMessage.GetErrorMessage(exception);
+            Managers.Auth.InfoMessage = AuthErrorMessage.GetErrorMessage(exception);
 
-            Debug.LogWarning(message: $"Authentication failed: {_infoMessage}");
+            Debug.LogWarning(message: $"Authentication failed: {Managers.Auth.InfoMessage}");
         }
         else
         {
             Managers.Auth.SetUser(authTask.Result);
 
-            _infoMessage = "구글 계정 연동에 성공 했습니다";
+            Managers.Auth.InfoMessage = "구글 계정 연동에 성공 했습니다";
 
             Debug.Log(message: $"User signed in successfully: {Managers.Auth.User.Email}");
         }

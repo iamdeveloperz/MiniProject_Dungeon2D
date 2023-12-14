@@ -19,7 +19,7 @@ public class FirebaseWithGPGS : FirebaseAuthentication
             }
             else
             {
-                _infoMessage = "구글 계정 연동에 실패 했습니다.";
+                Managers.Auth.InfoMessage = "구글 계정 연동에 실패 했습니다.";
 
                 Debug.LogError("GPGS Auth failed.");
             }

@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine;
+using System.Text.RegularExpressions;
+using TMPro;
 
 public class UI_EmailRegister : UI_Popup
 {
@@ -50,6 +52,31 @@ public class UI_EmailRegister : UI_Popup
 
         GetButton((int)Buttons.BTN_Close).gameObject.BindEvent(ClosePopup);
         GetButton((int)Buttons.BTN_Register).gameObject.BindEvent(EmailRegister);
+
+        foreach(InputFields inputField in Enum.GetValues(typeof(InputFields)))
+        {
+            GetInputField((int)inputField).onValidateInput += ValidateInput;
+        }
+    }
+    #endregion
+
+
+
+    #region InputField Methods
+    private char ValidateInput(string text, int charIndex, char addedChar)
+    {
+        // 영어 알파벳과 숫자, 일부 특수 문자만 허용
+        if (addedChar >= 'a' && addedChar <= 'z' || addedChar >= 'A' && addedChar <= 'Z' ||
+            addedChar >= '0' && addedChar <= '9' ||
+            addedChar == '.' || addedChar == ',' || addedChar == '?' || addedChar == '!' || addedChar == '-' || addedChar == '@')
+        {
+            return addedChar;
+        }
+        else
+        {
+            // 허용되지 않는 문자는 무시
+            return '\0';
+        }
     }
     #endregion
 
@@ -82,13 +109,13 @@ public class UI_EmailRegister : UI_Popup
         float timeoutDuration = 3.0f;
         float elapsedTime = 0f;
 
-        while (Managers.Auth.User == null && elapsedTime < timeoutDuration)
+        while (!Managers.Auth.IsRegister && elapsedTime < timeoutDuration)
         {
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        if (Managers.Auth.User != null)
+        if (Managers.Auth.IsRegister)
         {
             Managers.UI.ClosePopupUI(this);
         }

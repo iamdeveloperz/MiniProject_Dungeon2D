@@ -28,6 +28,11 @@ public class AuthManager
 
     #region Properties
 
+    public bool IsLoggedIn { get; set; } = false;
+    public bool IsRegister { get; set; } = false;
+    public string InfoMessage { get; set; }
+
+
     public FirebaseAuth FBAuth => _fbAuth;
     public PlayGamesPlatform GpgsAuth => _gpgsAuth;
 

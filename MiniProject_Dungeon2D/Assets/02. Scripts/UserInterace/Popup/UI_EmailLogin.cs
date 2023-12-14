@@ -82,13 +82,13 @@ public class UI_EmailLogin : UI_Popup
         float timeoutDuration = 3.0f;
         float elapsedTime = 0f;
 
-        while (Managers.Auth.User == null && elapsedTime < timeoutDuration)
+        while (!Managers.Auth.IsLoggedIn && elapsedTime < timeoutDuration)
         {
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        if (Managers.Auth.User != null)
+        if (Managers.Auth.IsLoggedIn)
         {
             OnLoginComplete?.Invoke();
             Managers.UI.ClosePopupUI(this);
