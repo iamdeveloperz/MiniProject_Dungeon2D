@@ -10,7 +10,7 @@ public abstract class FirebaseAuthentication
     protected string _infoMessage;
 
     // Firebase Email,Password
-    protected IEnumerator HandleFirebaseAuth(Task<AuthResult> authTask)
+    protected IEnumerator HandleFirebaseAuth(Task<AuthResult> authTask, bool isRegister)
     {
         yield return new WaitUntil(predicate: () => authTask.IsCompleted);
 
@@ -24,14 +24,21 @@ public abstract class FirebaseAuthentication
         }
         else
         {
-            Managers.Auth.SetUser(authTask.Result.User);
+            if (!isRegister)
+            {
+                Managers.Auth.SetUser(authTask.Result.User);
 
-            _infoMessage = "사용자 설정이 완료되었습니다. " + Managers.Auth.User.UserId;
+                _infoMessage = "사용자 로그인 성공";
 
-            Debug.Log(message: $"User signed in successfully: {Managers.Auth.User.Email}");
+                Debug.Log(message: $"User signed in successfully: {Managers.Auth.User.Email}");
+            }
+            else
+            {
+                _infoMessage = "사용자 계정 생성 성공";
+
+                Debug.Log(message: $"User register in successfully: {Managers.Auth}");
+            }
         }
-
-        LoginSystem.Instance.infoText.text = _infoMessage;
     }
 
     // Google Play Games
@@ -51,11 +58,9 @@ public abstract class FirebaseAuthentication
         {
             Managers.Auth.SetUser(authTask.Result);
 
-            _infoMessage = "구글 계정 연동에 성공 했습니다. " + Managers.Auth.User.UserId;
+            _infoMessage = "구글 계정 연동에 성공 했습니다";
 
             Debug.Log(message: $"User signed in successfully: {Managers.Auth.User.Email}");
         }
-
-        LoginSystem.Instance.infoText.text = _infoMessage;
     }
 }

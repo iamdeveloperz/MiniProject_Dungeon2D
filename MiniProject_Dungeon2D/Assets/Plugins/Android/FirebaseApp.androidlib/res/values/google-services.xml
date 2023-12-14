@@ -1,9 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_android_client_id,@string/default_web_client_id">
+  <string name="firebase_database_url" translatable="false">https://unitydungeon2d-default-rtdb.asia-southeast1.firebasedatabase.app</string>
   <string name="gcm_defaultSenderId" translatable="false">329964003237</string>
   <string name="google_storage_bucket" translatable="false">unitydungeon2d.appspot.com</string>
   <string name="project_id" translatable="false">unitydungeon2d</string>
   <string name="google_api_key" translatable="false">AIzaSyBXJlmgtu5f5FRTQ9LYWRMFbSwfo-eQ5Jc</string>
   <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBXJlmgtu5f5FRTQ9LYWRMFbSwfo-eQ5Jc</string>
   <string name="google_app_id" translatable="false">1:329964003237:android:7c79ec170e350f9d08524c</string>
+  <string name="default_android_client_id" translatable="false">329964003237-onuuq9grr0rp36balo4307ehpbhbml26.apps.googleusercontent.com</string>
+  <string name="default_web_client_id" translatable="false">329964003237-s9ng7iia4fuamjkv3g48ct6bh43cgavd.apps.googleusercontent.com</string>
 </resources>

@@ -15,6 +15,7 @@ public static class Literals
     #region Resources Path
 
     public const string PATH_UI = "Prefabs/UI/";
+    public const string PATH_INIT = "Prefabs/InitOnLoad/";
 
     #endregion
 

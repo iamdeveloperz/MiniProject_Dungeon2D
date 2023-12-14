@@ -9,18 +9,16 @@ public static class AuthErrorMessage
     {
         if(exception is FirebaseException firebaseException)
         {
-            AuthError authError = (AuthError)firebaseException.ErrorCode;
+            AuthError authError = (AuthError)Enum.Parse(typeof(AuthError), firebaseException.ErrorCode.ToString());
 
-            string errorMessage = "로그인 실패";
-            errorMessage+= authError switch
+            string errorMessage = authError switch
             {
                 AuthError.MissingEmail => "이메일이 입력 되지 않았습니다.",
                 AuthError.InvalidEmail => "올바른 형태의 이메일을 작성하세요.",
                 AuthError.MissingPassword => "비밀번호가 입력 되지 않았습니다.",
                 AuthError.WeakPassword => "비밀번호는 6자리 이상이어야 합니다.",
                 AuthError.EmailAlreadyInUse => "이미 사용중인 이메일입니다.",
-                AuthError.UserNotFound => "존재하지 않는 사용자입니다.",
-                AuthError.WrongPassword => "비밀번호가 틀렸습니다.",
+                AuthError.Failure => "이메일 또는 비밀번호가 올바르지 않습니다.",
                 _ => "알 수 없는 오류입니다."
             };
 

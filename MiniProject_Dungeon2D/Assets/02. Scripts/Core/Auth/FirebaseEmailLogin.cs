@@ -12,6 +12,6 @@ public class FirebaseEmailLogin : FirebaseAuthentication
     {
         var loginTask = Managers.Auth.FBAuth.SignInWithEmailAndPasswordAsync(email, password);
 
-        yield return HandleFirebaseAuth(loginTask);
+        yield return HandleFirebaseAuth(loginTask, false);
     }
 }

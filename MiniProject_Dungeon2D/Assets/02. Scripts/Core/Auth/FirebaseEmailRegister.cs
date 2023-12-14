@@ -17,19 +17,23 @@ public class FirebaseEmailRegister : FirebaseAuthentication
             string.IsNullOrEmpty(pw) || string.IsNullOrEmpty(pwConfirm))
         {
             _infoMessage = "비어 있는 입력이 존재합니다.";
-            LoginSystem.Instance.infoText.text = _infoMessage;
+            //Managers.UI.ShowPopupUI
             yield break;
         }
         else if(!string.Equals(pw, pwConfirm))
         {
             _infoMessage = "비밀번호가 같지 않습니다.";
-            LoginSystem.Instance.infoText.text = _infoMessage;
+            yield break;
+        }
+        else if(userName.Length < 2 || userName.Length > 10)
+        {
+            _infoMessage = "닉네임 길이를 준수해주세요.";
             yield break;
         }
 
         var registerTask = Managers.Auth.FBAuth.CreateUserWithEmailAndPasswordAsync(email, pw);
 
-        yield return HandleFirebaseAuth(registerTask);
+        yield return HandleFirebaseAuth(registerTask, true);
 
         if(!registerTask.IsCanceled && !registerTask.IsFaulted)
         {
@@ -62,13 +66,11 @@ public class FirebaseEmailRegister : FirebaseAuthentication
 
                 // Text Process
                 _infoMessage = "사용자 닉네임 설정에 실패했습니다.";
-                LoginSystem.Instance.infoText.text = _infoMessage;
             }
             else
             {
                 // User name setting complete
                 // return to screen or scene
-                LoginSystem.Instance.infoText.text = "닉네임 설정까지 완료";
             }
         }
     }

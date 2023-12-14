@@ -25,6 +25,7 @@ Library: C:\Users\iamde\OneDrive\Desktop\PROJECT\MiniProject_Dungeon2D\MiniProje
 --assembly-defines=Unity.Collections.LowLevel.ILSupport;
 --assembly-defines=Unity.InternalAPIEngineBridge.001;
 --assembly-defines=Unity.Mathematics;
+--assembly-defines=Unity.TextMeshPro;
 --assembly-defines=UnityEngine;
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\iamde\OneDrive\Desktop\PROJECT\MiniProject_Dungeon2D\MiniProject_Dungeon2D\Temp\Burst

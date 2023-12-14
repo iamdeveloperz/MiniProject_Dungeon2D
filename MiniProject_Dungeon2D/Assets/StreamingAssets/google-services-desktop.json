@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "329964003237",
+    "firebase_url": "https://unitydungeon2d-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "unitydungeon2d",
     "storage_bucket": "unitydungeon2d.appspot.com"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.SHS.MiniProject_Dungeon2D"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "329964003237-onuuq9grr0rp36balo4307ehpbhbml26.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.SHS.MiniProject_Dungeon2D",
+            "certificate_hash": "d7ef5fcb8927ebd408559b956ba68d8310f35053"
+          }
+        },
+        {
+          "client_id": "329964003237-s9ng7iia4fuamjkv3g48ct6bh43cgavd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBXJlmgtu5f5FRTQ9LYWRMFbSwfo-eQ5Jc"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329964003237-s9ng7iia4fuamjkv3g48ct6bh43cgavd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
